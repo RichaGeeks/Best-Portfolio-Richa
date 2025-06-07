@@ -1,0 +1,17 @@
+/*html, body,#root {
+	width: 100%;
+	height:100%;
+}
+
+#root {
+	position : fixed ;
+	background-color : black;
+
+}*/
+
+@font-face {
+  font-family: 'Brekgu';
+  src: url('/Font/BREKGUtrial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
