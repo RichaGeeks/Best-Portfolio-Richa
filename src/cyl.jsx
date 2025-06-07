@@ -19,7 +19,7 @@ const Cyl = () => {
     <group rotation={[0,1.4,0.5]}>
         <mesh ref={cyll} >
             <cylinderGeometry args = {[1,1,1, 60,60,true ]}/>
-            <meshStandardMaterial map={tex} transparent side={THREE.DoubleSide} metalness={0.7} roughness={0.1} />
+            <meshStandardMaterial  map={tex} transparent side={THREE.DoubleSide} metalness={0.7} roughness={0.1} />
         </mesh>
     </group>
   )
