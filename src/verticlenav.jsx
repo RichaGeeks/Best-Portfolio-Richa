@@ -1,61 +1,71 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const Nav = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+const navItems = [
+  { id: "home", label: "HOME" },
+  { id: "skills", label: "SKILLS" },
+  { id: "experience", label: "EXPERIENCE" },
+  { id: "projects", label: "PROJECTS" },
+  { id: "faqs", label: "FAQS" },
+  { id: "contact", label: "CONTACT" },
+];
+
+const VerticalNav = () => {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/4 bg-gray-900 p-4"> {/* Adjust width and background color */}
-        <h2 className="text-white text-xl mb-4">Navigation</h2>
-        <ul className="space-y-4">
-          <li
-            className={`text-white cursor-pointer p-2 rounded ${
-              activeIndex === 0 ? "bg-purple-600" : ""
-            }`}
-            onMouseEnter={() => setActiveIndex(0)}
-            onMouseLeave={() => setActiveIndex(null)}
+    <>
+      {/* Vertical nav for md+ screens */}
+      <nav className="fixed left-4 top-1/2 z-50 -translate-y-1/2 flex-col items-center justify-center space-y-6 h-[80vh] font-custom hidden md:flex">
+        {navItems.map((item) => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            className="text-gray-700 hover:text-blue-600 font-bold text-lg tracking-widest"
+            style={{
+              writingMode: "vertical-rl",
+              textOrientation: "mixed",
+            }}
           >
-            Quote 1
-          </li>
-          <li
-            className={`text-white cursor-pointer p-2 rounded ${
-              activeIndex === 1 ? "bg-blue-600" : ""
-            }`}
-            onMouseEnter={() => setActiveIndex(1)}
-            onMouseLeave={() => setActiveIndex(null)}
-          >
-            Quote 2
-          </li>
-          <li
-            className={`text-white cursor-pointer p-2 rounded ${
-              activeIndex === 2 ? "bg-green-600" : ""
-            }`}
-            onMouseEnter={() => setActiveIndex(2)}
-            onMouseLeave={() => setActiveIndex(null)}
-          >
-            Quote 3
-          </li>
-          <li
-            className={`text-white cursor-pointer p-2 rounded ${
-              activeIndex === 3 ? "bg-yellow-600" : ""
-            }`}
-            onMouseEnter={() => setActiveIndex(3)}
-            onMouseLeave={() => setActiveIndex(null)}
-          >
-            Quote 4
-          </li>
-        </ul>
-      </div>
+            {item.label}
+          </a>
+        ))}
+      </nav>
 
-      <div className="flex-1 flex justify-center items-center">
-        {/* Main content area */}
-        <div className="flex w-full h-[230px]">
-          {/* Your existing quote cards */}
-          {/* Replace this section with your existing code for quote cards */}
+      {/* Hamburger icon for mobile */}
+      <button
+        className="fixed top-4 left-4 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-white/80 shadow-lg md:hidden"
+        onClick={() => setOpen((o) => !o)}
+        aria-label="Open navigation"
+      >
+        {/* Hamburger SVG */}
+        <svg
+          className="w-7 h-7 text-gray-800"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2.5}
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+
+      {/* Dropdown menu for mobile */}
+      {open && (
+        <div className="fixed top-20 left-4 z-50 flex flex-col items-start space-y-2 bg-white/95 rounded-xl shadow-xl p-4 font-custom md:hidden">
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className="text-gray-700 hover:text-blue-600 font-bold text-base py-1 px-2 rounded transition"
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
-export default Nav;
+export default VerticalNav;

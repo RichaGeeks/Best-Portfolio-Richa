@@ -34,14 +34,15 @@ function ExperienceBook() {
 
   return (
     <div
-      className="flex flex-col items-center w-screen min-h-screen py-4 bg-gradient-to-br from-[#212121] to-[#121212]"
+      className="relative flex flex-col overflow-x-hidden items-center w-screen py-20 "
       style={{ cursor }}
       onMouseEnter={() => setCursor(`url('${customCursor}') 26 26, auto`)}
       onMouseLeave={() => setCursor('default')}
     >
+      
       {/* Smoothly fading text */}
       <div
-        className={`absolute left-[20%] top-[10%] max-w-[380px] text-white pointer-events-none transition-all duration-700 ease-in-out ${
+        className={`absolute left-[20%] top-[20%] max-w-[380px] text-white pointer-events-none transition-all duration-700 ease-in-out ${
           currentPage === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
@@ -204,7 +205,7 @@ function ExperienceBook() {
       </HTMLFlipBook>
 
       {/* Enhanced Horizontal Timeline */}
-      <div className="w-full max-w-5xl mt-5 px-4 ">
+      <div className="w-full max-w-5xl  mt-5 overflow-x-hidden ">
         <div className="relative">
           {/* Timeline container with improved styling */}
           <div className="bg-gradient-to-br from-[#212121] to-[#121212] rounded-2xl p-6 pt-2 shadow-2xl border border-gray-600">
@@ -279,6 +280,7 @@ function ExperienceBook() {
                 );
               })}
             </div>
+
           </div>
         </div>
       </div>

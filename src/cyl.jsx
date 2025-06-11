@@ -6,7 +6,7 @@ import {useFrame} from "@react-three/fiber";
 
 const Cyl = () => {
 
-  let tex= useTexture("./image.png");
+  let tex= useTexture("./cylindercover.png");
   //tex.needsUpdate = true;
   let cyll = useRef(null);
 
@@ -16,7 +16,7 @@ const Cyl = () => {
   });
 
   return (
-    <group rotation={[0,1.4,0.5]}>
+    <group rotation={[0,0,0]}>
         <mesh ref={cyll} >
             <cylinderGeometry args = {[1,1,1, 60,60,true ]}/>
             <meshStandardMaterial  map={tex} transparent side={THREE.DoubleSide} metalness={0.7} roughness={0.1} />
