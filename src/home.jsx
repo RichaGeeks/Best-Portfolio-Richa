@@ -3,7 +3,7 @@ import Footer from './footer';
 import Projects from './projects';
 import Skills from './skills';
 import Techstack from './components/techstack';
-import Model from './astraiamodel';
+import Model from './Astraiamodel';
 import VerticalNav from './verticlenav'
 const Experience = () => {
 	return (
