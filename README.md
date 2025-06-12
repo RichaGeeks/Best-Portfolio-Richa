@@ -2,7 +2,8 @@
 
 Welcome to the source code for [Richa Suryawanshi's Portfolio](https://github.com/RichaGeeks), a modern, interactive, and visually stunning developer portfolio built with React, Three.js, and Tailwind CSS.
 
-![Portfolio Screenshot](./public/images/mockaiproj.png)
+Preview 
+
 
 ---
 
