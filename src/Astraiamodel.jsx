@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF, useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 import CenteredOverlay from "./components/fixedhero";
+import RotatingCircularText from "./components/rotatingcirculartext";
 
 
 // Helper for smooth interpolation
@@ -187,7 +188,7 @@ export default function ScrollingWebsite() {
         position: { x: -4, y: 2, z: -5 },
         rotation: { x: -0.1, y: -0.8, z: 0 },
         scale: { x: 1.5, y: 1.5, z: 1.5 },
-        camera: { position: { x: -5, y: 2, z: 8 }, fov: 10 },
+        camera: { position: { x: -5.8, y: 2, z: 8 }, fov: 10 },
       },
     },
     {
@@ -357,13 +358,15 @@ export default function ScrollingWebsite() {
         </section>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="fixed bottom-8 right-8 z-20 text-white">
-        <div className="text-sm opacity-70">
-          Current:{" "}
-          <span className="capitalize font-semibold">{currentSection}</span>
-        </div>
-      </div>
+
+      {/* Rotating Circular Text */}
+      <div
+        className="fixed bottom-8 right-8 z-30 pointer-events-none select-none"
+
+        aria-label="Rotating circular signature"
+       >
+        <RotatingCircularText text=" RICHA SURYAWANSHI" radius={45} speed={10} />
+       </div>
     </div>
   );
 }

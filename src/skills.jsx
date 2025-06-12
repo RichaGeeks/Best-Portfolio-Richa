@@ -42,7 +42,7 @@ const GradientFadeSection = () => {
           `
         }}
       >
-        
+       <section id="skills">
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center min-h-screen mt-0 py-0 px-8 text-center">
           <div className="mt-0 mb-0 w-screen h-[500px]">
@@ -73,7 +73,8 @@ const GradientFadeSection = () => {
             What I Bring to the Table
           </p>
         </div>
-        <Techstack/>
+         <Techstack/>
+        </section>
         <section id="experience"><Book/></section>
 
         {/* Decorative Elements */}

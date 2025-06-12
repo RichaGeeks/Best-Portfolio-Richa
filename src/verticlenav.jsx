@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const navItems = [
   { id: "home", label: "HOME" },
@@ -11,6 +11,30 @@ const navItems = [
 
 const VerticalNav = () => {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(navItems[0].id);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      let current = navItems[0].id;
+
+      for (const item of navItems) {
+        const el = document.getElementById(item.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.3 && rect.bottom >= window.innerHeight * 0.3) {
+            current = item.id;
+            break;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -20,7 +44,8 @@ const VerticalNav = () => {
           <a
             key={item.id}
             href={`#${item.id}`}
-            className="text-gray-700 hover:text-blue-600 font-bold text-lg tracking-widest"
+            className={`font-bold text-lg tracking-widest transition
+              ${activeSection === item.id ? "text-blue-600" : "text-gray-700 hover:text-blue-600"}`}
             style={{
               writingMode: "vertical-rl",
               textOrientation: "mixed",
@@ -56,7 +81,8 @@ const VerticalNav = () => {
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="text-gray-700 hover:text-blue-600 font-bold text-base py-1 px-2 rounded transition"
+              className={`font-bold text-base py-1 px-2 rounded transition
+                ${activeSection === item.id ? "text-blue-600" : "text-gray-700 hover:text-blue-600"}`}
               onClick={() => setOpen(false)}
             >
               {item.label}

@@ -10,10 +10,10 @@ const Experience = () => {
 		< >
 		    <VerticalNav />
 			<section id="home"><Model/></section>
-			<section id="skills"><Skills /></section>
+			<section ><Skills /></section>
 			<section id="projects"><Projects /></section>
 			<section id="faqs"><FAQs /></section>
-			<section id="footer"><Footer /></section>
+			<section id="contact"><Footer /></section>
 		
 	    </>
 	);
