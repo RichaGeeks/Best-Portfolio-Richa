@@ -4,19 +4,26 @@ import { OrbitControls, useGLTF, useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 import CenteredOverlay from "./components/fixedhero";
 import RotatingCircularText from "./components/rotatingcirculartext";
-
+import LoadingScreen from "./components/LoadingScreen";
 
 // Helper for smooth interpolation
 function damp(current, target, lambda, delta) {
   return THREE.MathUtils.damp(current, target, lambda, delta);
 }
 
-// 3D Model Component with smooth transitions
-function DragonModel({ targetConfig, transitionActive, visible }) {
+function DragonModel({ targetConfig, transitionActive, visible, setModelLoaded }) {
   const group = useRef();
   const { camera } = useThree();
   const { scene, animations } = useGLTF("/astraiamodel.glb");
   const { actions } = useAnimations(animations, group);
+
+  // Notify parent when model is loaded
+  useEffect(() => {
+    if (scene && setModelLoaded) {
+      setModelLoaded(true);
+    }
+    // eslint-disable-next-line
+  }, [scene]);
 
   // Play animation if available
   useEffect(() => {
@@ -217,6 +224,12 @@ export default function ScrollingWebsite() {
   const [transitionActive, setTransitionActive] = useState(false);
   const [targetConfig, setTargetConfig] = useState(sectionList[0].config);
 
+  // ---- Loading states for model ----
+  const [loading, setLoading] = useState(true);
+  const [displayedProgress, setDisplayedProgress] = useState(1);
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const [finalPhase, setFinalPhase] = useState(false);
+
   // Section transition detection
   useEffect(() => {
     const handleScroll = () => {
@@ -268,25 +281,61 @@ export default function ScrollingWebsite() {
     // eslint-disable-next-line
   }, []);
 
-  // Navigation scroll
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   // Only show model on all four sections
   const isModelVisible = sectionList.map(s => s.id).includes(currentSection);
 
   // Section heights: less than before for less scrolling
   const sectionHeight = "100vh";
 
+  // Progress counter animation
+  useEffect(() => {
+    if (!loading) return;
+    let timer;
+    if (!finalPhase) {
+      timer = setInterval(() => {
+        setDisplayedProgress((prev) => {
+          if (prev < 82 && !modelLoaded) {
+            return prev + 1;
+          } else if (modelLoaded) {
+            setFinalPhase(true);
+            return prev;
+          }
+          return prev;
+        });
+      }, 9); // SPEED UP: 9ms for fast counting 0-82
+    } else {
+      timer = setInterval(() => {
+        setDisplayedProgress((prev) => {
+          if (prev < 100) {
+            return prev + 1;
+          }
+          return prev;
+        });
+      }, 16); // 16ms for a smoother finish to 100%
+    }
+    return () => clearInterval(timer);
+  }, [loading, finalPhase, modelLoaded]);
+
+  // When model loads, trigger the final phase if not already there
+  useEffect(() => {
+    if (modelLoaded && !finalPhase) {
+      setFinalPhase(true);
+    }
+  }, [modelLoaded, finalPhase]);
+
+  // Hide loader shortly after reaching 100%
+  useEffect(() => {
+    if (displayedProgress === 100 && loading) {
+      const timeout = setTimeout(() => setLoading(false), 400);
+      return () => clearTimeout(timeout);
+    }
+  }, [displayedProgress, loading]);
+
   return (
-    <div
-      className="relative min-h-screen"
-      style={{ minHeight: "100vh", overflowX: "hidden" }}
-    >
+    <div className="relative min-h-screen overflow-x-hidden">
+      {/* Loading Screen */}
+      <LoadingScreen loading={loading} progress={displayedProgress} />
+
       {/* Fixed 3D Canvas Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Canvas
@@ -304,6 +353,7 @@ export default function ScrollingWebsite() {
             targetConfig={targetConfig}
             transitionActive={transitionActive}
             visible={isModelVisible}
+            setModelLoaded={setModelLoaded}
           />
           <CameraController />
 
@@ -316,57 +366,47 @@ export default function ScrollingWebsite() {
         </Canvas>
       </div>
 
-
       {/* Overlay */}
       <CenteredOverlay />
 
       {/* Content Sections */}
-      <div className="relative z-10" style={{ pointerEvents: "auto" }}>
+      <div className="relative z-10 pointer-events-auto">
         {/* Home Section */}
         <section
           id="welcome"
           className="section flex items-center justify-center"
           style={{ minHeight: sectionHeight }}
-        >
-          
-        </section>
+        ></section>
 
         {/* About Section */}
         <section
           id="who"
           className="section flex items-center justify-center"
           style={{ minHeight: sectionHeight }}
-        >
-          
-
-        </section> 
+        ></section>
 
         {/* Services Section */}
         <section
           id="intro"
           className="section flex items-center justify-center"
           style={{ minHeight: sectionHeight }}
-        >
-        </section>
+        ></section>
 
         {/* Contact Section */}
         <section
           id="extra"
           className="section flex items-center justify-center"
           style={{ minHeight: sectionHeight }}
-        >
-        </section>
+        ></section>
       </div>
-
 
       {/* Rotating Circular Text */}
       <div
         className="fixed bottom-8 right-8 z-30 pointer-events-none select-none"
-
         aria-label="Rotating circular signature"
-       >
+      >
         <RotatingCircularText text=" RICHA SURYAWANSHI" radius={45} speed={10} />
-       </div>
+      </div>
     </div>
   );
 }

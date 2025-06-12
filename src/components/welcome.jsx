@@ -14,14 +14,14 @@ const sectionIds = ["welcome", "who", "intro", "extra"];
 function WelcomeSection({ currentIndex }) {
   return (
     <div
-      className="pointer-events-auto flex flex-col alignItems-center relative w-screen h-screen px-8 py-16"
+      className="pointer-events-auto flex flex-col items-center relative w-full h-screen pl-16 py-16"
       style={{
         gap: "2rem",
       }}
     >
       {/* Huge Gothic Heading */}
       <h1
-        className="text-gray-800 font-custom text-[4rem] md:text-[8rem] pl-16 pt-4 text-left leading-none"
+        className="text-gray-800 font-custom text-[2rem]  md:text-[8rem]  pt-4 text-left leading-none"
         style={{
           letterSpacing: "0.03em",
           textShadow: "0 4px 24px #000a,0 1px 0px #fff2",
@@ -33,7 +33,7 @@ function WelcomeSection({ currentIndex }) {
 
       {/* Subheading & Buttons Row */}
       <div
-        className="flex flex-row md:flex-col items-left justify-center pl-16 gap-6 w-full"
+        className="flex flex-col md:flex-col items-left justify-center gap-6 w-full"
         style={{ minHeight: 72 }}
       > 
         <div className="flex flex-col md:flex-row items-center justify-start gap-6 " >
@@ -54,7 +54,7 @@ function WelcomeSection({ currentIndex }) {
             </a>
 
             {/* Social Icons */}
-            <div className="flex flex-row gap-5 ml-0 md:ml-10">
+            <div className="flex flex-row gap-5 ">
           
               <a
                 href="https://github.com/RichaGeeks"

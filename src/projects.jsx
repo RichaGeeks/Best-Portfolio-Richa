@@ -30,7 +30,7 @@ const Projects = () => {
                   </a>
               </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col hidden sm:block">
               <Cardinformation 
                 title="ThreeD Dragon" 
                 description={
@@ -55,6 +55,27 @@ const Projects = () => {
             imageSrc="/images/dragonproj.png"
             imageAlt="Laptop showing group study room"
           />
+          <div className="flex flex-col block sm:hidden">
+              <Cardinformation 
+                title="ThreeD Dragon" 
+                description={
+                  <>
+                    Built using Three.js, GLTFLoader and OrbitControls, this project features a fully animated 3D dragon model that responds dynamically to scroll events. Whether you're here for the fire breathing aesthetics or the code wizardry this one's for you.
+                  </>
+                }
+              />
+              <div className="flex mt-4 justify-center">
+                  <a href="https://github.com/RichaGeeks/Dragon-three.js " ><button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                    Github
+                  </button>
+                  </a>
+                  <a href="https://dragon-threejs-richa.netlify.app/">
+                  <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                    Live Demo
+                  </button>
+                  </a>
+              </div>
+          </div>
 
           <FeatureCard 
             imageSrc="/images/weathergreekproj.png"
