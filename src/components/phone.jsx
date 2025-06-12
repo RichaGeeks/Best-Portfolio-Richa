@@ -9,7 +9,7 @@ const FloatingPhone = () => {
         transformStyle: "preserve-3d",
         transform: "rotateY(-30deg) rotateX(15deg)",
       }}
-      className="rounded-[24px] bg-[#0e12eb]"
+      className="rounded-[24px] bg-blue-800"
     >
       <motion.div
         initial={{
@@ -55,7 +55,7 @@ const Screen = () => {
         viewBox="0 0 50 39"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="fill-[#0e12eb]"
+        className="fill-blue-800"
       >
         <path
           d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z"
@@ -67,12 +67,12 @@ const Screen = () => {
         ></path>
       </svg>
 
-      <button className="absolute bottom-4 left-4 right-4 z-10 rounded-lg border-[1px] bg-white py-2 text-sm font-medium text-[#0e12eb] backdrop-blur">
+      <button className="absolute bottom-4 left-4 right-4 z-10 rounded-lg border-[1px] bg-white py-2 text-sm font-medium text-blue-800 backdrop-blur">
         Contact Me
       </button>
 
       {/* <div className="absolute -left-32 -top-32 h-64 w-64 rounded-full bg-violet-500" /> */}
-      <div className="absolute -bottom-72 left-[50%] h-96 w-96 -translate-x-[50%] rounded-full bg-[#0e12eb]" />
+      <div className="absolute -bottom-72 left-[50%] h-96 w-96 -translate-x-[50%] rounded-full bg-blue-800" />
     </div>
   );
 };

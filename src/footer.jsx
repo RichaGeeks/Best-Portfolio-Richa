@@ -4,13 +4,13 @@ const Footer = () => {
 	return (
     <div className="relative w-full min-h-screen z-20 flex items-center justify-center bg-gradient-to-br from-[#212121] to-[#121212]">
         <div className="md:w-2/3 w-full px-4 text-white flex flex-col">
-           <div className="flex flex-row items-center mt-12 justify-between">
-              <div>
+           <div className="flex flex-col md:flex-row  items-center mt-12 justify-between">
+              <div className="pb-5">
                 <div className="w-full text-7xl font-custom">
                     <h1 className="w-full md:w-2/3">How can I help you. get in touch</h1>
                 </div>
                 <div className="flex mt-8 flex-col md:flex-row md:justify-between">
-                    <p className="w-full md:w-2/3 text-[#0e12eb]">Let's build something remarkable together</p>
+                    <p className="w-full md:w-2/3 text-blue-600">Let's build something remarkable together</p>
                 </div>
               </div>
               <FloatingPhone />
@@ -44,7 +44,7 @@ const Footer = () => {
                         </a>
                     </div>
                 </div>
-                <hr className="border-[#0e12eb]"/>
+                <hr className="border-blue-600"/>
                 <p className="w-full text-center my-12 text-gray-600">Copyright © 2025 </p>
             </div>
         </div>

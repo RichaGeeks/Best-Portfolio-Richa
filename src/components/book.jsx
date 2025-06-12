@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import customCursor from '../images/cursorbook.png';
 
 function ExperienceBook() {
   const [cursor, setCursor] = useState('default');
   const [currentPage, setCurrentPage] = useState(0);
+  const bookRef = useRef();
 
   const handleFlip = (e) => {
     setCurrentPage(e.data);
@@ -27,10 +28,14 @@ function ExperienceBook() {
 
   // Function to navigate to specific page
   const navigateToPage = (pageNum) => {
-    // This would need to be implemented with the HTMLFlipBook ref
-    // For now, we'll just update the current page state
+    if (bookRef.current) {
+      bookRef.current.pageFlip().flip(pageNum);
+    }
     setCurrentPage(pageNum);
   };
+
+  // Helper for full-page image style
+  const fullPageImageStyle = "absolute inset-0 w-full h-full object-cover rounded-[3rem]";
 
   return (
     <div
@@ -39,10 +44,10 @@ function ExperienceBook() {
       onMouseEnter={() => setCursor(`url('${customCursor}') 26 26, auto`)}
       onMouseLeave={() => setCursor('default')}
     >
-      
+      <h2 className="font-custom text-[#fcf9ed] text-[3rem] animate-pulse  block sm:hidden">Open the Book</h2>
       {/* Smoothly fading text */}
       <div
-        className={`absolute left-[20%] top-[20%] max-w-[380px] text-white pointer-events-none transition-all duration-700 ease-in-out ${
+        className={`absolute left-[20%] top-[20%] max-w-[380px] text-white pointer-events-none transition-all duration-700 ease-in-out hidden md:block ${
           currentPage === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
@@ -58,6 +63,7 @@ function ExperienceBook() {
       </div>
 
       <HTMLFlipBook
+        ref={bookRef}
         width={400}
         height={480}
         size="fixed"
@@ -79,142 +85,141 @@ function ExperienceBook() {
           </div>
         </div>
 
-        {/*Black Page */}
-        <div className="bg-white p-6 rounded-[3rem] shadow-lg">
+        {/* Full-page Image: Education */}
+        <div className="relative w-full h-full bg-blue-700 rounded-[3rem] overflow-hidden">
           <img
-            src="/educationbook.jpg"
+            src="/bookcover/book1.png"
             alt="Education Background"
-            className="w-full h-auto rounded-2xl"
+            className={fullPageImageStyle}
           />
         </div>
 
         {/* Education */}
-        <div className="bg-white p-6 rounded-[3rem]">
-          <h2 className="text-xl  font-custom text-blue-700 mb-2">Education</h2>
-          <p><strong>Degree:</strong> B.Tech in Electronics and Computer Engineering</p>
-          <p><strong>Institution:</strong> KJ Somaiya College of Engineering, Vidyavihar</p>
-          <p><strong>Duration:</strong> 2022 to 2026</p>
-          <p className="mb-2"><strong>CGPA:</strong> 8.61</p>
+        <div className="bg-blue-700 pt-10 text-yellow-100 p-6 rounded-[3rem]">
+          <h2 className="text-2xl  font-custom   mb-2">Education</h2>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">Degree </span>: B.Tech in Electronics and Computer Engineering</p>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900 ">Institution</span>: KJ Somaiya College of Engineering, Vidyavihar</p>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">Duration </span>: 2022 to 2026</p>
+          <p className="text-md pb-6"><span className="font-custom text-lg text-stone-900">CGPA </span>: 8.61</p>
           <hr></hr>
-          <h2 className="text-xl mt-4 font-custom text-blue-700 mb-2">Honors</h2>
-          <p><strong>Honors:</strong> Data Science and Analytics</p>
-          <p><strong>Duration:</strong> 2023 to 2026</p>
+          <h2 className="text-2xl mt-4 font-custom text-yellow-100 mb-2">Honors</h2>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">Honors </span>: Data Science and Analytics</p>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">Duration </span>: 2023 to 2026</p>
         </div>
 
-        {/*Black Page */}
-        <div className="bg-white p-6 rounded-[3rem] shadow-lg">
+        {/* Full-page Image: Internship/Work */}
+        <div className="relative w-full h-full bg-black rounded-[3rem] overflow-hidden">
           <img
-            src="/internshipwork.jpg"
-            alt="Education Background"
-            className="w-auto h-full"
+            src="/bookcover/book2.png"
+            alt="Internship Work"
+            className={fullPageImageStyle}
           />
         </div>
 
-        {/* Internship: Meshcraft */}
-        <div className="bg-white p-6 rounded-[3rem]">
-          <h2 className="text-xl font-custom text-blue-700 mb-2">Internship: Meshcraft</h2>
-          <p><strong>Role:</strong> Web Developer Lead Intern</p>
-          <p><strong>Duration:</strong> Dec 2024 to Mar 2025 (Remote)</p>
+        {/* Internship Meshcraft */}
+        <div className="bg-blue-700 text-yellow-100 pt-10 p-6 rounded-[3rem]">
+          <h2 className="text-2xl font-custom  mb-2">Internship Meshcraft</h2>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">Role </span>: Web Developer Lead Intern</p>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">Duration </span>: Dec 2024 to Mar 2025 (Remote)</p>
           <ul className="list-disc ml-6 text-sm mt-2">
             <li>Built their website for 3D asset marketplace using React, Three.js, and React Three Fiber.</li>
             <li>Led 6+ developers, improving team efficiency by 30%.</li>
             <li>Oversaw UI/UX enhancements and agile coordination.</li>
           </ul>
-          <img src="/meshcraft.jpg" alt="Meshcraft Logo" className="w-24 h-24 mt-4 " />
+          <img src="/internshipimg/meshcraft.png" alt="Meshcraft Logo" className="h-30  mt-2 rounded-3xl" />
         </div>
 
-        {/*Black Page */}
-        <div className="bg-white p-6 rounded-[3rem] shadow-lg">
+        {/* Full-page Image: Internship/Work */}
+        <div className="relative w-full h-full bg-black rounded-[3rem] overflow-hidden">
           <img
-            src="/internshipwork.jpg"
-            alt="Education Background"
-            className="w-auto h-full"
+            src="/bookcover/book3.png"
+            alt="Internship Work"
+            className={fullPageImageStyle}
           />
         </div>
 
         {/* Internship: ILegalAdvice */}
-        <div className="bg-white p-6 rounded-[3rem]">
-          <h2 className="text-xl font-custom text-blue-700 mb-2">Internship: ILegalAdvice</h2>
-          <p><strong>Role:</strong> Full Stack Developer Intern</p>
-          <p><strong>Duration:</strong> Mar – Apr 2025 (Remote)</p>
+        <div className="bg-blue-700 text-yellow-100 pt-10 p-6 rounded-[3rem]">
+          <h2 className="text-2xl font-custom mb-2">Internship ILegalAdvice</h2>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">Role </span>: Full Stack Developer Intern</p>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">Duration </span>: Mar 2025 to Apr 2025 (Remote)</p>
           <ul className="list-disc ml-6 text-sm mt-2">
             <li>Designed UI/UX in Figma and implemented full-stack features.</li>
             <li>Used React, Node.js, Tailwind CSS, and PostgreSQL.</li>
             <li>Integrated REST APIs for real-time legal data and insights.</li>
           </ul>
-          <img src="/ilegaladvice.jpg" alt="ILegalAdvice Logo" className="w-24 h-24 mt-4 " />
+          <img src="/internshipimg/ilegal.png" alt="ILegalAdvice Logo" className="h-30  mt-2 rounded-3xl " />
         </div>
 
-        {/*Black Page */}
-        <div className="bg-white p-6 rounded-[3rem] shadow-lg">
+        {/* Full-page Image: Winbook */}
+        <div className="relative w-full h-full bg-black rounded-[3rem] overflow-hidden">
           <img
-            src="/winbook.jpg"
-            alt="Education Background"
-            className="w-full h-auto rounded-2xl"
+            src="/bookcover/book4.png"
+            alt="Winning"
+            className={fullPageImageStyle}
           />
         </div>
 
         {/* Achievements */}
-        <div className="bg-white p-6 rounded-[3rem]">
-          <h2 className="text-xl font-custom text-blue-700 mb-2">Achievements</h2>
-          <ul className="list-disc ml-6 text-sm">
-            <li>Winner – Frontend Hackathon, Artemis (Oct 2024)</li>
-            <li>Secured Bluestar scholarship (2nd year)</li>
-            <li>2nd place in Indian National Talent Exam</li>
+        <div className="bg-blue-700 text-yellow-100 pt-10 p-6 rounded-[3rem]">
+          <h2 className="text-2xl font-custom mb-2">Achievements</h2>
+          <ul className="list-disc ml-6 text-lg">
+            <li>Winner of a Frontend Hackathon, Artemis (Oct 2024)</li>
+              <img src="/internshipimg/hackathonfront.jpg" alt="certificate Logo" className="h-30  mt-2 mb-4 rounded-3xl " />
+              <hr></hr>
+            <li className="mt-2">Secured Bluestar scholarship (2nd year)</li>
           </ul>
         </div>
 
-        {/*Black Page */}
-        <div className="bg-white p-6 rounded-[3rem] shadow-lg">
+        {/* Full-page Image: Teamwork */}
+        <div className="relative w-full h-full bg-black rounded-[3rem] overflow-hidden">
           <img
-            src="/teamwork.jpg"
-            alt="Education Background"
-            className="w-full h-auto rounded-2xl"
+            src="/bookcover/book5.png"
+            alt="Teamwork"
+            className={fullPageImageStyle}
           />
         </div>
 
         {/* Extracurriculars */}
-        <div className="bg-white p-6 rounded-[3rem]">
-          <h2 className="text-xl font-custom text-blue-700 mb-2">Extracurricular Activities</h2>
-          <p><strong>BloomBox, E-Cell of KJSCE</strong></p>
-          <p>Campus Company & Innovation Member (June 2023 – Apr 2024)</p>
+        <div className="bg-blue-700 text-yellow-100 pt-10 p-6 rounded-[3rem]">
+          <h2 className="text-2xl font-custom  mb-2">Extracurricular Activities</h2>
+          <p className="text-md "><span className="font-custom text-lg text-stone-900">BloomBox Entrepreneurship Cell of KJSCE</span></p>
+          <p>Campus Company & Innovation Member (June 2023 to Apr 2024)</p>
           <ul className="list-disc ml-6 text-sm mt-2">
             <li>Organized innovation-driven events.</li>
             <li>Collaborated on startup-support workshops.</li>
           </ul>
+          <img src="/internshipimg/bloombox.jpg" alt="BloomBox Logo" className="h-30  mt-2 rounded-3xl " />
         </div>
 
-        {/*Black Page */}
-        <div className="bg-white p-6 rounded-[3rem] shadow-lg">
+        {/* Full-page Image: Fashionbook */}
+        <div className="relative w-full h-full bg-black rounded-[3rem] overflow-hidden">
           <img
-            src="/fashionbook.jpg"
-            alt="Education Background"
-            className="w-full h-auto rounded-2xl"
+            src="/bookcover/book6.png"
+            alt="Fashion"
+            className={fullPageImageStyle}
           />
         </div>
 
         {/* Leadership Roles */}
-        <div className="bg-white p-6 rounded-[3rem]">
-          <h2 className="text-xl font-custom text-blue-700 mb-2">Leadership Roles</h2>
-          <p><strong>Chief – Glitterati Fashion Show Council (KJSCE)</strong></p>
+        <div className="bg-blue-700 p-6 text-yellow-100 pt-10 rounded-[3rem]">
+          <h2 className="text-2xl font-custom mb-2">Leadership Roles</h2>
+          <p><strong>Chief of Glitterati Fashion Show Council (KJSCE)</strong></p>
           <ul className="list-disc ml-6 text-sm mt-2">
             <li>Led event planning and execution for college fashion shows.</li>
             <li>Managed creative direction, coordination, and stage design.</li>
           </ul>
+          <img src="/internshipimg/glitterati.jpg" alt="Glitterati Logo" className="h-30  mt-2 rounded-3xl " />
         </div>
       </HTMLFlipBook>
 
       {/* Enhanced Horizontal Timeline */}
-      <div className="w-full max-w-5xl  mt-5 overflow-x-hidden ">
+      <div className="w-screen max-w-5xl hidden md:block   mt-5 overflow-x-hidden sm:visible ">
         <div className="relative">
           {/* Timeline container with improved styling */}
           <div className="bg-gradient-to-br from-[#212121] to-[#121212] rounded-2xl p-6 pt-2 shadow-2xl border border-gray-600">
-            
-            {/* Timeline content */}
             <div className="flex justify-between items-center relative px-0">
-              {/* Timeline line with gradient */}
               <div className="absolute top-1/2 left-4 right-4 h-1 bg-gradient-to-r from-gray-600 via-blue-400 to-gray-600 rounded-full transform -translate-y-1/2"></div>
-              
               {Object.entries(timelinePages).map(([item, pageNum], index) => {
                 const isActive = isTimelineActive(pageNum);
                 return (
@@ -223,7 +228,6 @@ function ExperienceBook() {
                     className="flex flex-col items-center relative z-10"
                     onClick={() => navigateToPage(pageNum)}
                   >
-                    {/* Timeline dot with enhanced styling */}
                     <div 
                       className={`relative w-4 h-4 pb-0 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-110 ${
                         isActive 
@@ -231,12 +235,9 @@ function ExperienceBook() {
                           : 'bg-gray-500 hover:bg-gray-400 shadow-md'
                       }`}
                     >
-                      {/* Pulse animation for active state */}
                       {isActive && (
                         <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-30"></div>
                       )}
-                      
-                      {/* Check icon for active state */}
                       {isActive ? (
                         <svg 
                           xmlns="http://www.w3.org/2000/svg" 
@@ -254,8 +255,6 @@ function ExperienceBook() {
                         <div className="w-3 h-3 bg-white rounded-full"></div>
                       )}
                     </div>
-                    
-                    {/* Timeline label with improved styling */}
                     <div 
                       className={`mt-4 text-xs text-center px-3 py-0 rounded-lg cursor-pointer transition-all duration-300 max-w-[120px] ${
                         isActive 
@@ -271,8 +270,6 @@ function ExperienceBook() {
                         ))}
                       </div>
                     </div>
-                    
-                    {/* Active indicator line */}
                     {isActive && (
                       <div className="absolute -bottom-2 w-1 h-8 bg-gradient-to-b from-blue-500 to-transparent rounded-full"></div>
                     )}
@@ -280,7 +277,6 @@ function ExperienceBook() {
                 );
               })}
             </div>
-
           </div>
         </div>
       </div>
