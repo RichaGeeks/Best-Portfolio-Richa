@@ -1,7 +1,7 @@
 import { Bloom, EffectComposer, ToneMapping } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import Cyl from "./Cyl";
+import Cyl from "./cyl";
 import React, { useState, useEffect } from 'react';
 import Techstack from './components/techstack';
 import Book from './components/book';
