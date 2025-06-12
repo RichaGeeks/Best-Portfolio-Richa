@@ -8,7 +8,7 @@ import Cyl from "./cyl";
 import Nav from './verticlenav';
 import NotFound from './404pagenotfound';
 import Home from './home';
-import Model from './astraiamodel';
+import Model from './Astraiamodel';
 //import Dummy from './dummyhome';
 
 
@@ -19,7 +19,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/model" element={<Model />} />
        
         
       </Routes>
