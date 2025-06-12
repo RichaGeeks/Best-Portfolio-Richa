@@ -4,7 +4,7 @@ import "./style.css";
 import { Bloom, EffectComposer, ToneMapping } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import Cyl from "./Cyl";
+import Cyl from "./cyl";
 import Nav from './verticlenav';
 import NotFound from './404pagenotfound';
 import Home from './home';

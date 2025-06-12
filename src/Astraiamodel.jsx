@@ -4,7 +4,7 @@ import { OrbitControls, useGLTF, useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 import CenteredOverlay from "./components/fixedhero";
 import RotatingCircularText from "./components/rotatingcirculartext";
-import LoadingScreen from "./components/LoadingScreen";
+import LoadingScreen from "./components/loading";
 
 // Helper for smooth interpolation
 function damp(current, target, lambda, delta) {
