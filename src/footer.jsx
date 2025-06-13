@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="flex flex-col">
                 <div className="flex mt-6 mb-12 flex-row justify-between">
                     <div>
-                        Richa Logo    
+                        <img src="/logo/RSnobg.png" alt="Logo" className="w-12 h-12 object-contain" />    
                     </div>
                     <a className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">About</a>
                     <a className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Services</a>
@@ -45,7 +45,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <hr className="border-blue-600"/>
-                <p className="w-full text-center my-12 text-gray-600">Copyright © 2025 </p>
+                <p className="w-full text-center my-12 text-gray-600">Richa Suryawanshi</p>
             </div>
         </div>
     </div>
