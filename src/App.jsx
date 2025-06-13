@@ -10,6 +10,7 @@ import NotFound from './404pagenotfound';
 import Home from './home';
 import Model from './Astraiamodel';
 //import Dummy from './dummyhome';
+import Skills from './components/book';
 
 
 
@@ -19,6 +20,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/home" element={<Skills/>} />
+
        
         
       </Routes>
