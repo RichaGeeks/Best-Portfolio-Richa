@@ -45,7 +45,7 @@ const GradientFadeSection = () => {
        <section id="skills">
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center min-h-screen mt-0 py-0 px-8 text-center">
-          <div className="mt-0 mb-0 w-screen h-[500px]">
+          <div className="mt-0 mb-0 w-full h-[500px] overflow-hidden">
             <Canvas camera={{ position: [0, 0 ,1], fov: 100 }}>
               <OrbitControls />
               <ambientLight intensity={10} />
