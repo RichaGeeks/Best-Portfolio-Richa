@@ -1,27 +1,16 @@
+// components/loading.jsx
 import React from "react";
 
-const LoadingScreen = ({ loading, progress }) => {
+const LoadingScreen = ({ loading }) => {
+  if (!loading) return null;
+
   return (
-    loading && (
-      <div
-        className={`
-          fixed inset-0 z-[9999] bg-white  transition-opacity flex
-          sm:items-end sm:justify-start
-          items-center justify-center
-        `}
-      >
-        <div
-          className={`
-            font-bold text-gray-800 tracking-wider select-none
-            sm:mb-10 sm:ml-10 sm:text-8xl sm:px-14 sm:py-10
-            mb-0 mx-0 text-5xl px-8 py-6
-          `}
-          style={{ textShadow: "0 4px 24px #222", letterSpacing: "0.08em" }}
-        >
-          {progress}% <p className="font-custom text-xl"> Loading</p>
-        </div>
+    <div className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center">
+      <div className="p-3 animate-spin drop-shadow-2xl bg-gradient-to-bl from-[#0e12eb] to-[#989b9c] md:w-48 md:h-48 h-32 w-32 aspect-square rounded-full">
+        <div className="rounded-full h-full w-full bg-white backdrop-blur-md" />
       </div>
-    )
+      <div className="pt-16 font-custom drop-shadow-2xl  text-[#0e12eb] text-2xl"> Good Things Take Time</div>
+    </div>
   );
 };
 

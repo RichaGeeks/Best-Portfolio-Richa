@@ -226,9 +226,7 @@ export default function ScrollingWebsite() {
 
   // ---- Loading states for model ----
   const [loading, setLoading] = useState(true);
-  const [displayedProgress, setDisplayedProgress] = useState(1);
   const [modelLoaded, setModelLoaded] = useState(false);
-  const [finalPhase, setFinalPhase] = useState(false);
 
   // Section transition detection
   useEffect(() => {
@@ -287,54 +285,34 @@ export default function ScrollingWebsite() {
   // Section heights: less than before for less scrolling
   const sectionHeight = "100vh";
 
-  // Progress counter animation
+  
+
+
   useEffect(() => {
-    if (!loading) return;
-    let timer;
-    if (!finalPhase) {
-      timer = setInterval(() => {
-        setDisplayedProgress((prev) => {
-          if (prev < 82 && !modelLoaded) {
-            return prev + 1;
-          } else if (modelLoaded) {
-            setFinalPhase(true);
-            return prev;
-          }
-          return prev;
-        });
-      }, 9); // SPEED UP: 9ms for fast counting 0-82
+      if (modelLoaded) {
+        const timeout = setTimeout(() => setLoading(false), 400);
+        return () => clearTimeout(timeout);
+      }
+  }, [modelLoaded]);
+
+  // Inside ScrollingWebsite component
+  useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = 'hidden';
     } else {
-      timer = setInterval(() => {
-        setDisplayedProgress((prev) => {
-          if (prev < 100) {
-            return prev + 1;
-          }
-          return prev;
-        });
-      }, 16); // 16ms for a smoother finish to 100%
+      document.body.style.overflow = '';
     }
-    return () => clearInterval(timer);
-  }, [loading, finalPhase, modelLoaded]);
 
-  // When model loads, trigger the final phase if not already there
-  useEffect(() => {
-    if (modelLoaded && !finalPhase) {
-      setFinalPhase(true);
-    }
-  }, [modelLoaded, finalPhase]);
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [loading]);
 
-  // Hide loader shortly after reaching 100%
-  useEffect(() => {
-    if (displayedProgress === 100 && loading) {
-      const timeout = setTimeout(() => setLoading(false), 400);
-      return () => clearTimeout(timeout);
-    }
-  }, [displayedProgress, loading]);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       {/* Loading Screen */}
-      <LoadingScreen loading={loading} progress={displayedProgress} />
+      <LoadingScreen loading={loading} />
 
       {/* Fixed 3D Canvas Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
